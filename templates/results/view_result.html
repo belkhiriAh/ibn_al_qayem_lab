@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+            <div class="result-container">
+                <h1 class="section-title text-center mb-4">{% trans "نتيجة التحليل" %}</h1>
+                
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h2 class="card-title">{% trans "معلومات المريض" %}</h2>
+                        <p><strong>{% trans "الاسم:" %}</strong> {{ result.patient_name }}</p>
+                        <p><strong>{% trans "رقم النتيجة:" %}</strong> {{ result.result_number }}</p>
+                        <p><strong>{% trans "تاريخ النتيجة:" %}</strong> {{ result.date_created|date:"Y-m-d" }}</p>
+                    </div>
+                </div>
+                
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h2 class="card-title mb-4">{% trans "صورة النتيجة" %}</h2>
+                        <div class="text-center">
+                            <img src="{{ result.result_image.url }}" alt="{% trans 'نتيجة التحليل' %}" class="result-image">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="qr-code-container">
+                    <h3>{% trans "رمز QR للنتيجة" %}</h3>
+                    <img src="{{ result.qr_code.url }}" alt="QR Code" class="qr-code-image">
+                </div>
+                
+                <div class="text-center mt-4">
+                    <button class="btn btn-primary" onclick="window.print()">
+                        <i class="fas fa-print me-2"></i>{% trans "طباعة النتيجة" %}
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<style>
+    @media print {
+        .site-header, .footer, .btn {
+            display: none !important;
+        }
+    }
+</style>
+{% endblock %}

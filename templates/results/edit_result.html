@@ -1,0 +1,116 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+            <div class="card">
+                <div class="card-body">
+                    <h1 class="card-title text-center mb-4">{% trans "تعديل النتيجة" %}</h1>
+                    
+                    <div class="row mb-4">
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-body text-center">
+                                    <h5 class="card-title">{% trans "صورة النتيجة الحالية" %}</h5>
+                                    <img src="{{ result.result_image.url }}" alt="{% trans 'صورة النتيجة' %}" class="img-fluid rounded mb-2">
+                                    <a href="{{ result.result_image.url }}" target="_blank" class="btn btn-sm btn-primary">
+                                        <i class="fas fa-expand me-1"></i>{% trans "عرض بالحجم الكامل" %}
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-body text-center">
+                                    <h5 class="card-title">{% trans "رمز QR" %}</h5>
+                                    <img src="{{ result.qr_code.url }}" alt="QR Code" class="img-fluid rounded mb-2" style="max-width: 200px;">
+                                    <a href="{{ result.qr_code.url }}" target="_blank" class="btn btn-sm btn-primary">
+                                        <i class="fas fa-expand me-1"></i>{% trans "عرض بالحجم الكامل" %}
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label class="form-label">{% trans "رقم النتيجة" %}</label>
+                                        <div class="form-control-plaintext">
+                                            <code>{{ result.result_number }}</code>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label class="form-label">{% trans "كلمة المرور" %}</label>
+                                        <div class="form-control-plaintext">
+                                            <code>{{ result.password }}</code>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <form method="post" enctype="multipart/form-data" class="edit-result-form">
+                        {% csrf_token %}
+                        
+                        <div class="mb-3">
+                            <label for="result_image" class="form-label">{% trans "تغيير صورة النتيجة" %}</label>
+                            <input type="file" class="form-control" id="result_image" name="result_image" accept="image/*">
+                            <div class="form-text">{% trans "اترك هذا الحقل فارغاً إذا كنت لا تريد تغيير الصورة" %}</div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" id="is_active" name="is_active" {% if result.is_active %}checked{% endif %}>
+                                <label class="form-check-label" for="is_active">{% trans "نشط" %}</label>
+                            </div>
+                        </div>
+                        
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-save me-2"></i>{% trans "حفظ التغييرات" %}
+                            </button>
+                            <a href="{% url 'manage_results' %}" class="btn btn-secondary">
+                                <i class="fas fa-arrow-right me-2"></i>{% trans "العودة" %}
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    .edit-result-form {
+        max-width: 600px;
+        margin: 0 auto;
+    }
+    
+    .form-text {
+        font-size: 0.875rem;
+        color: #6c757d;
+    }
+    
+    .card img {
+        max-height: 300px;
+        object-fit: contain;
+    }
+    
+    code {
+        background: #f8f9fa;
+        padding: 4px 8px;
+        border-radius: 4px;
+    }
+</style>
+{% endblock %}

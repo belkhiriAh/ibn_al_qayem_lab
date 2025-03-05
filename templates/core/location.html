@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+            <h1 class="section-title text-center mb-5">{% trans "موقعنا" %}</h1>
+            
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h2 class="card-title mb-4">{% trans "العنوان" %}</h2>
+                    <p class="lead">{% trans "مخبر إبن القيم - مسعد، الجزائر" %}</p>
+                    
+                    <div class="mt-4">
+                        <h3>{% trans "كيفية الوصول إلينا" %}</h3>
+                        <p>{% trans "نحن نقع في موقع مركزي يسهل الوصول إليه:" %}</p>
+                        <ul>
+                            <li>{% trans "قريب من وسط المدينة" %}</li>
+                            <li>{% trans "مواقف سيارات متوفرة" %}</li>
+                            <li>{% trans "قريب من محطة الحافلات" %}</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-title mb-4">{% trans "الخريطة" %}</h3>
+                    <!-- Replace the src with the actual Google Maps embed URL for your location -->
+                    <div class="ratio ratio-16x9">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d26244.669176407275!2d4.5097662!3d34.1539907!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12f5bd33cbe9f7c5%3A0x1a4a5e41f77c2fea!2sMessaad!5e0!3m2!1sen!2sdz!4v1646454207854!5m2!1sen!2sdz"
+                                style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                    </div>
+                    
+                    <div class="mt-4">
+                        <h4>{% trans "ساعات العمل" %}</h4>
+                        <ul class="list-unstyled">
+                            <li>{% trans "السبت - الخميس:" %} 8:00 - 17:00</li>
+                            <li>{% trans "الجمعة:" %} {% trans "مغلق" %}</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

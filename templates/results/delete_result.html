@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-lg-6 mx-auto">
+            <div class="card">
+                <div class="card-body text-center">
+                    <div class="mb-4">
+                        <i class="fas fa-exclamation-triangle text-warning" style="font-size: 4rem;"></i>
+                    </div>
+                    
+                    <h1 class="card-title mb-4">{% trans "حذف النتيجة" %}</h1>
+                    
+                    <p class="lead mb-4">
+                        {% trans "هل أنت متأكد من حذف نتيجة المريض:" %}
+                        <strong>{{ result.patient_name }}</strong>
+                        {% trans "برقم النتيجة:" %}
+                        <strong>{{ result.result_number }}</strong>؟
+                    </p>
+                    
+                    <div class="alert alert-warning" role="alert">
+                        <i class="fas fa-info-circle me-2"></i>
+                        {% trans "هذا الإجراء لا يمكن التراجع عنه!" %}
+                    </div>
+                    
+                    <form method="post" class="mt-4">
+                        {% csrf_token %}
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-danger">
+                                <i class="fas fa-trash me-2"></i>{% trans "نعم، احذف النتيجة" %}
+                            </button>
+                            <a href="{% url 'manage_results' %}" class="btn btn-secondary">
+                                <i class="fas fa-times me-2"></i>{% trans "إلغاء" %}
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

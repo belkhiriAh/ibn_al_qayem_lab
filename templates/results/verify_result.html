@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 mx-auto">
+            <div class="card">
+                <div class="card-body">
+                    <h1 class="card-title text-center mb-4">{% trans "التحقق من النتيجة" %}</h1>
+                    
+                    <div class="text-center mb-4">
+                        <div class="display-4 mb-3">{{ result_number }}</div>
+                        <p class="text-muted">{% trans "الرجاء إدخال كلمة المرور للوصول إلى النتيجة" %}</p>
+                    </div>
+
+                    {% if messages %}
+                    <div class="messages mb-4">
+                        {% for message in messages %}
+                        <div class="alert alert-{{ message.tags }}">
+                            {{ message }}
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+
+                    <form method="post" class="verify-form">
+                        {% csrf_token %}
+                        <div class="mb-4">
+                            <label for="password" class="form-label">{% trans "كلمة المرور" %}</label>
+                            <input type="password" class="form-control form-control-lg text-center" 
+                                   id="password" name="password" required 
+                                   autocomplete="off" inputmode="numeric" >
+                        </div>
+                        
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary btn-lg">
+                                <i class="fas fa-lock-open me-2"></i>{% trans "عرض النتيجة" %}
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    .verify-form {
+        max-width: 400px;
+        margin: 0 auto;
+    }
+    
+    .display-4 {
+        font-family: monospace;
+        letter-spacing: 2px;
+        color: #2c3e50;
+    }
+</style>
+{% endblock %}

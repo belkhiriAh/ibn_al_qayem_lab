@@ -1,0 +1,163 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load static %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero-section py-5" style="background-image: url('{% static 'images/pattern.svg' %}');">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6 text-center text-lg-end order-lg-2">
+                <img src="{% static 'images/logo.svg' %}" alt="مخبر إبن القيم" class="img-fluid mb-4 mb-lg-0" style="max-width: 300px;">
+            </div>
+            <div class="col-lg-6 text-center text-lg-end">
+                <h1 class="display-4 mb-4">{% trans "مخبر إبن القيم - مسعد" %}</h1>
+                <p class="lead mb-4">{% trans "نقدم خدمات تحليل طبية عالية الجودة مع إمكانية الوصول إلى النتائج عبر الإنترنت" %}</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Result Check Section -->
+<section class="check-result-section py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-6">
+                <div class="card shadow-lg">
+                    <div class="card-body p-4">
+                        <h2 class="card-title text-center mb-4">{% trans "التحقق من النتائج" %}</h2>
+                        
+                        {% if messages %}
+                        <div class="messages mb-4">
+                            {% for message in messages %}
+                            <div class="alert alert-{{ message.tags }}">
+                                {{ message }}
+                            </div>
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+                        
+                        <form method="post" class="check-result-form">
+                            {% csrf_token %}
+                            <div class="mb-4">
+                                <label for="result_number" class="form-label">{% trans "رقم النتيجة" %}</label>
+                                <input type="text" class="form-control form-control-lg text-center" 
+                                       id="result_number" name="result_number" required 
+                                       placeholder="{% trans 'مثال: 202503050001' %}"
+                                       pattern="\d{12}" maxlength="12"
+                                       autocomplete="off">
+                                <div class="form-text text-center">
+                                    {% trans "الرجاء إدخال رقم النتيجة المكون من 12 رقم" %}
+                                </div>
+                            </div>
+                            
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-primary btn-lg">
+                                    <i class="fas fa-search me-2"></i>{% trans "البحث عن النتيجة" %}
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Features Section -->
+<section class="features-section py-5 bg-light">
+    <div class="container">
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body text-center">
+                        <div class="feature-icon mb-3">
+                            <i class="fas fa-flask fa-3x text-primary"></i>
+                        </div>
+                        <h3 class="card-title h4">{% trans "تحاليل دقيقة" %}</h3>
+                        <p class="card-text">{% trans "نستخدم أحدث التقنيات والمعدات لضمان دقة النتائج" %}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body text-center">
+                        <div class="feature-icon mb-3">
+                            <i class="fas fa-clock fa-3x text-primary"></i>
+                        </div>
+                        <h3 class="card-title h4">{% trans "نتائج سريعة" %}</h3>
+                        <p class="card-text">{% trans "نتائج التحاليل متوفرة بسرعة مع إمكانية الوصول إليها عبر الإنترنت" %}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body text-center">
+                        <div class="feature-icon mb-3">
+                            <i class="fas fa-user-md fa-3x text-primary"></i>
+                        </div>
+                        <h3 class="card-title h4">{% trans "فريق متخصص" %}</h3>
+                        <p class="card-text">{% trans "فريق من المتخصصين ذوي الخبرة في مجال التحاليل الطبية" %}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    .hero-section {
+        background-color: #f8f9fa;
+        background-size: cover;
+        background-position: center;
+        padding: 80px 0;
+        position: relative;
+    }
+    
+    .hero-section::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(255, 255, 255, 0.9);
+        z-index: 0;
+    }
+    
+    .hero-section > .container {
+        position: relative;
+        z-index: 1;
+    }
+    
+    .check-result-section {
+        margin-top: -50px;
+    }
+    
+    .feature-icon {
+        width: 80px;
+        height: 80px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto;
+        border-radius: 50%;
+        background: rgba(var(--bs-primary-rgb), 0.1);
+    }
+    
+    .card {
+        transition: transform 0.2s;
+    }
+    
+    .card:hover {
+        transform: translateY(-5px);
+    }
+    
+    .form-control-lg {
+        font-size: 1.2rem;
+        letter-spacing: 2px;
+    }
+</style>
+{% endblock %}
